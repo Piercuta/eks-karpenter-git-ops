@@ -1,0 +1,15 @@
+controller:
+  resources:
+    limits:
+      cpu: 1
+      memory: 1Gi
+    requests:
+      cpu: 1
+      memory: 1Gi
+replicas: 1
+serviceAccount:
+  create: true
+  name: karpenter
+settings:
+  clusterName: piercuta-dev-eks-cluster
+  interruptionQueue: piercuta-dev-eks-cluster

@@ -1,0 +1,77 @@
+from fastapi import FastAPI, Depends
+import datetime
+from cloudfront_signer import CloudFrontSigner
+1. Pré - requis côté AWS
+Un CloudFront Distribution configuré pour pointer vers ton bucket S3.
+Une CloudFront Key Pair(ou mieux, une CloudFront Public Key + Key Group si tu utilises les nouvelles méthodes).
+Le Private Key(format PEM) stocké de façon sécurisée(ex: AWS Secrets Manager, ou variable d’environnement dans EKS).
+Le Key Pair ID ou Key Group ID.
+
+2. Exemple de code Python pour générer une URL signée CloudFront
+On utilise la librairie officielle AWS boto3 pour S3, mais pour CloudFront, il faut utiliser awscli ou la librairie cloudfront - signer(AWS SDK ne gère pas nativement la signature CloudFront en Python).
+
+a. Installer la dépendance
+pip install cloudfront - signer
+
+b. Exemple de code
+
+
+# Charger la clé privée (PEM) depuis un fichier ou une variable d'environnement
+
+def rsa_signer(message):
+    with open("path/to/your/private_key.pem", "rb") as key_file:
+        private_key = key_file.read()
+    from cryptography.hazmat.primitives import serialization
+    from cryptography.hazmat.primitives.asymmetric import padding
+    from cryptography.hazmat.primitives import hashes
+    from cryptography.hazmat.backends import default_backend
+    private_key_obj = serialization.load_pem_private_key(
+        private_key, password=None, backend=default_backend()
+    )
+    return private_key_obj.sign(message, padding.PKCS1v15(), hashes.SHA1())
+
+
+# Paramètres CloudFront
+key_id = "CLOUDFRONT_KEY_PAIR_ID"  # à récupérer dans la console AWS
+cloudfront_domain = "dxxxxxxx.cloudfront.net"
+
+# Générer l'URL signée
+
+
+def generate_signed_url(file_path: str, expire_minutes: int = 10):
+    url = f"https://{cloudfront_domain}/{file_path}"
+    expire_date = datetime.datetime.utcnow() + datetime.timedelta(minutes=expire_minutes)
+    signer = CloudFrontSigner(key_id, rsa_signer)
+    signed_url = signer.generate_presigned_url(url, date_less_than=expire_date)
+    return signed_url
+
+
+# Exemple d'utilisation
+if __name__ == "__main__":
+    file_path = "uploads/myfile.pdf"
+    url = generate_signed_url(file_path)
+    print("Signed URL:", url)
+
+3. Intégration dans FastAPI
+
+
+app = FastAPI()
+
+
+@app.get("/files/{file_path:path}")
+def get_signed_file_url(file_path: str):
+    url = generate_signed_url(file_path)
+    return {"url": url}
+
+
+4. Sécurité
+
+Ne jamais exposer la clé privée dans le code source: utilise un secret manager ou une variable d’environnement.
+Restreindre l’accès au bucket S3 pour que seul CloudFront puisse lire les fichiers(OAI / OAC).
+Limiter la durée de validité des URLs signées(ex: 5 - 10 minutes).
+
+Résumé du flow
+L’utilisateur demande un fichier via le frontend.
+Le frontend appelle / files / {file_path} sur le File Service.
+Le File Service génère une URL signée CloudFront et la retourne.
+Le frontend utilise cette URL pour télécharger le fichier via CloudFront.

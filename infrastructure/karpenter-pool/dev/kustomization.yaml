@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../base
+
+patches:
+  - path:  patches/patch-ec2-node-class-cdk.yaml
+    target:
+      kind: EC2NodeClass
+      name: karpenter-node-class
+      namespace: kube-system
+  - path:  patches/patch-node-pool-spot.yaml
+    target:
+      kind: NodePool
+      name: karpenter-node-pool
+      namespace: kube-system

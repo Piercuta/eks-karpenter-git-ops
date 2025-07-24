@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fastapi-config
+  namespace: fastapi
+data:
+  POSTGRES_DB: app
+  POSTGRES_USER: postgres
+  POSTGRES_PORT: "5432"
+  SECRET_KEY: Osa3ZuhC7d6ssbF4XmKtYlemuTdbefkPvuZgOCRTrLg
+  FIRST_SUPERUSER: admin@example.com
+  FIRST_SUPERUSER_PASSWORD: Coucou123!

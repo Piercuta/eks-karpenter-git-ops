@@ -1,0 +1,153 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aws-auth-config
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"  # le plus tôt possible
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
+    targetRevision: main
+    path: clusters/config/
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    # ❌ Ne surtout pas automatiser sans précaution
+    automated: {}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-bootstrap
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
+    targetRevision: main
+    path: infrastructure/argocd
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aws-load-balancer-controller-dev
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"  # déployé avant les apps
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
+    targetRevision: main
+    path: infrastructure/aws-load-balancer-controller/dev
+    # kustomize: {}
+      # namespace: kube-system
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: karpenter-dev
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: default
+  sources:
+  - repoURL: public.ecr.aws/karpenter
+    chart: karpenter
+    targetRevision: 1.5.2
+    helm:
+      valueFiles:
+      - $values/infrastructure/karpenter/dev/karpenter-values-cdk.yaml
+  - repoURL: 'https://github.com/Piercuta/eks-karpenter-git-ops.git'
+    targetRevision: main
+    ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: karpenter-pool-dev
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
+    targetRevision: main
+    path: infrastructure/karpenter-pool/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fastapi-dev
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
+    targetRevision: main
+    path: apps/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fastapi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-dev
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
+    targetRevision: main
+    path: infrastructure/ingress/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

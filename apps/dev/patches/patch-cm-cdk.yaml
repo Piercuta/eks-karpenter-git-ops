@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  AWS_REGION: eu-west-1
+  AWS_SECRET_ARN: arn:aws:secretsmanager:eu-west-1:532673134317:secret:rds!cluster-06197ed1-3303-4de3-b9c2-62a6a448f893-wv0gYn
+  ENV_NAME: dev
+  FRONTEND_HOST: https://dev-react.piercuta.com
+  POSTGRES_SERVER: piercuta-dev-aurora-cluster.cluster-c36i2qm0y4yz.eu-west-1.rds.amazonaws.com
+  PROJECT_NAME: piercuta
+kind: ConfigMap
+metadata:
+  name: fastapi-config
+  namespace: fastapi

@@ -1,0 +1,9 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: fastapi-hpa
+  namespace: fastapi
+spec:
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 30

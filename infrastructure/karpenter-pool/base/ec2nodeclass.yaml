@@ -1,0 +1,14 @@
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: karpenter-node-class
+  namespace: kube-system
+  labels:
+    app: karpenter
+spec:
+  amiFamily: AL2023
+  amiSelectorTerms:
+    - alias: al2023@v20250620
+  tags:
+    Name: karpenter-node
+    ManagedBy: karpenter

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-app
+  namespace: fastapi
+  labels:
+    app: fastapi
+spec:
+  selector:
+    matchLabels:
+      app: fastapi
+  template:
+    metadata:
+      labels:
+        app: fastapi
+        sg: fastapi
+    spec:
+      nodeSelector:
+        # Important to use the node-type label to select the karpenter node pool
+        workload-type: default
+      serviceAccountName: fastapi-sa
+      containers:
+      - name: fastapi
+        envFrom:
+        - configMapRef:
+            name: fastapi-config
+        ports:
+        - containerPort: 8000
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%

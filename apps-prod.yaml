@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: apps-for-apps-prod
+  namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  project: default
+  source:
+    repoURL: 'https://github.com/Piercuta/eks-karpenter-git-ops.git'
+    targetRevision: main
+    path: clusters/prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
