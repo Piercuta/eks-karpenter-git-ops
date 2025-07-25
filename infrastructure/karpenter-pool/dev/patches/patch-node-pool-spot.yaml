@@ -39,7 +39,7 @@ spec:
           values: ["1"]  # ✅ Minimum 2 vCPU pour éviter les trop petites instances
   disruption:
     budgets:
-    - nodes: 100% # ✅ 100% to avoid keeping few nodes on big instance type...
+    - nodes: 60% # ✅ 100% to avoid keeping few nodes on big instance type...
       reasons:
       - "Underutilized"
       - "Empty"
