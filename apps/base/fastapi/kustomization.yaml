@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - cm.yaml
   - deployment.yaml
-  # - hpa.yaml
+  - hpa.yaml
   - namespace.yaml
   - service.yaml
   - serviceaccount.yaml
