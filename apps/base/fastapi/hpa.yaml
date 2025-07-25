@@ -23,9 +23,19 @@ spec:
   #       type: AverageValue
   #       averageValue: 500Mi
   behavior:
-    scaleUp:
-      stabilizationWindowSeconds: 0
+    scaleDown:
       policies:
-        - type: Percent
+        - periodSeconds: 30
+          type: Percent
+          value: 75
+      selectPolicy: Max
+    scaleUp:
+      policies:
+        - periodSeconds: 15
+          type: Percent
           value: 100
-          periodSeconds: 30
+        - periodSeconds: 15
+          type: Pods
+          value: 5
+      selectPolicy: Max
+      stabilizationWindowSeconds: 0
