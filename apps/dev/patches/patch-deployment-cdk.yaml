@@ -5,10 +5,10 @@ metadata:
   namespace: fastapi
 spec:
   strategy:
-    type: RollingUpdate
     rollingUpdate:
       maxSurge: 100%
       maxUnavailable: 25%
+    type: RollingUpdate
   template:
     spec:
       containers:
