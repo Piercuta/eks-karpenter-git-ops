@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
   AWS_REGION: eu-west-1
-  AWS_SECRET_ARN: arn:aws:secretsmanager:eu-west-1:532673134317:secret:rds!cluster-0cd1cdd4-de50-4a56-ab28-15878f3a0085-hOipdK
+  AWS_SECRET_ARN: arn:aws:secretsmanager:eu-west-1:532673134317:secret:rds!cluster-6429c848-5ad0-43b7-955d-8af8f531c1a9-bLut1V
   ENV_NAME: dev
   FRONTEND_HOST: https://dev-react.piercuta.com
   POSTGRES_SERVER: piercuta-dev-aurora-cluster.cluster-c36i2qm0y4yz.eu-west-1.rds.amazonaws.com

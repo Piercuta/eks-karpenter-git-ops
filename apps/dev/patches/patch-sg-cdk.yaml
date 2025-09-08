@@ -6,4 +6,4 @@ metadata:
 spec:
   securityGroups:
     groupIds:
-    - sg-0b1ab5278140a37ea
+    - sg-0e9cbce4ad50df96a
