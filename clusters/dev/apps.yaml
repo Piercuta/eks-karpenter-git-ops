@@ -130,27 +130,85 @@ spec:
     automated:
       prune: true
       selfHeal: true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: prometheus-grafana-dev
-  namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "4"
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
-    targetRevision: main
-    path: infrastructure/prometheus-grafana/dev
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: monitoring
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: prometheus-grafana-dev
+#   namespace: argocd
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "4"
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
+#     targetRevision: main
+#     path: infrastructure/prometheus-grafana/kustomize/dev
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: monitoring
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+# ---
+# helm chart auto
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: prometheus-grafana-dev
+#   namespace: argocd
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "4"
+# spec:
+#   project: default
+#   sources:
+#   - repoURL: https://prometheus-community.github.io/helm-charts
+#     chart: kube-prometheus-stack
+#     targetRevision: 77.5.0
+#     helm:
+#       valueFiles:
+#       - $values/infrastructure/prometheus-grafana/dev/prometheus-values.yaml
+#   - repoURL: 'https://github.com/Piercuta/eks-karpenter-git-ops.git'
+#     targetRevision: main
+#     ref: values
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: monitoring
+#   syncPolicy:
+#     syncOptions:
+#     - CreateNamespace=true
+#     automated:
+#       prune: true
+#       selfHeal: true
+# ---
+# helm chart auto
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: prometheus-grafana-dev
+#   namespace: argocd
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "4"
+# spec:
+#   project: default
+#   source:
+#     repoURL: 'https://github.com/Piercuta/eks-karpenter-git-ops.git'
+#     targetRevision: main                # branche Git
+#     path: infrastructure/prometheus-grafana/helm-manual # chemin vers ton chart local
+#     helm:
+#       valueFiles:
+#         - values-dev-override.yaml
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: monitoring
+#   syncPolicy:
+#     syncOptions:
+#     - CreateNamespace=true
+#     - ServerSideApply=true 
+#     automated:
+#       prune: true
+#       selfHeal: true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
