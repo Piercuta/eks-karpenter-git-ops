@@ -1,0 +1,14 @@
+prometheus:
+  prometheusSpec:
+    # Resource limits
+    resources:
+      requests:
+        memory: 2Gi
+        cpu: 1000m
+      limits:
+        memory: 4Gi
+        cpu: 2000m
+alertmanager:
+  enabled: false
+grafana:
+  enabled: true
