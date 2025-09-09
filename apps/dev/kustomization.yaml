@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - ../base/fastapi
+  - ../base/file-service
 
 patches:
   - path: patches/fastapi/patch-hpa-cdk.yaml
@@ -30,3 +31,13 @@ patches:
       kind: SecurityGroupPolicy
       name: fastapi-sg
       namespace: fastapi
+  - path: patches/file-service/patch-cm-cdk.yaml
+    target:
+      kind: ConfigMap
+      name: file-service-config
+      namespace: file-service
+  - path: patches/file-service/patch-deployment-cdk.yaml
+    target:
+      kind: Deployment
+      name: file-service-app
+      namespace: file-service

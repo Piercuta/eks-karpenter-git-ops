@@ -1,11 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fastapi-app
-  namespace: fastapi
+  name: file-service-app
+  namespace: file-service
   labels:
     app: file-service
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: file-service

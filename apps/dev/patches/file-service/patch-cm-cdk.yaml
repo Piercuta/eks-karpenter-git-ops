@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  S3_BUCKET_NAME: bucket_test
+  CLOUDFRONT_DOMAIN: domain_test
+kind: ConfigMap
+metadata:
+  name: file-service-config
+  namespace: file-service

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: file-service-app
+  namespace: file-service
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    spec:
+      containers:
+      - image: 532673134317.dkr.ecr.eu-west-1.amazonaws.com/services/eks/file-service:dev
+        name: file-service
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+          requests:
+            cpu: 1000m
+            memory: 512Mi
