@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
-  S3_BUCKET_NAME: bucket_test
-  CLOUDFRONT_DOMAIN: domain_test
+  S3_BUCKET_NAME: piercuta-test-bucket
+  CLOUDFRONT_DOMAIN: piercuta-test-domain.cloudfront.net
 kind: ConfigMap
 metadata:
   name: file-service-config

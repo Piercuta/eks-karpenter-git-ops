@@ -122,10 +122,31 @@ spec:
   source:
     repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
     targetRevision: main
-    path: apps/dev
+    path: apps/fastapi/dev
   destination:
     server: https://kubernetes.default.svc
     namespace: fastapi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: file-service-dev
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
+    targetRevision: main
+    path: apps/file-service/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: file-service
   syncPolicy:
     automated:
       prune: true
