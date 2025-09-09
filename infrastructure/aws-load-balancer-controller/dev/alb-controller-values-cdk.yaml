@@ -2,4 +2,4 @@ clusterName: piercuta-dev-eks-cluster
 serviceAccount:
   create: true
   name: aws-load-balancer-controller
-vpcId: vpc-0d6d131e47172bd67
+vpcId: vpc-071574a4a30ab3464
