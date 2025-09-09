@@ -15,9 +15,9 @@ spec:
       - image: 532673134317.dkr.ecr.eu-west-1.amazonaws.com/services/ecs/fastapi_app:latest
         name: fastapi
         resources:
-          limits:
-            cpu: 1000m
-            memory: 512Mi
           requests:
             cpu: 1000m
-            memory: 512Mi
+            memory: 2Gi
+          limits:
+            cpu: 2000m
+            memory: 4Gi
