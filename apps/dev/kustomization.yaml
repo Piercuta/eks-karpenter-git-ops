@@ -5,27 +5,27 @@ resources:
   - ../base/fastapi
 
 patches:
-  - path: patches/patch-hpa-cdk.yaml
+  - path: patches/fastapi/patch-hpa-cdk.yaml
     target:
       kind: HorizontalPodAutoscaler
       name: fastapi-hpa
       namespace: fastapi
-  - path: patches/patch-hpa.yaml
+  - path: patches/fastapi/patch-hpa.yaml
     target:
       kind: HorizontalPodAutoscaler
       name: fastapi-hpa
       namespace: fastapi
-  - path: patches/patch-cm-cdk.yaml
+  - path: patches/fastapi/patch-cm-cdk.yaml
     target:
       kind: ConfigMap
       name: fastapi-config
       namespace: fastapi
-  - path: patches/patch-deployment-cdk.yaml
+  - path: patches/fastapi/patch-deployment-cdk.yaml
     target:
       kind: Deployment
       name: fastapi-app
       namespace: fastapi
-  - path: patches/patch-sg-cdk.yaml
+  - path: patches/fastapi/patch-sg-cdk.yaml
     target:
       kind: SecurityGroupPolicy
       name: fastapi-sg

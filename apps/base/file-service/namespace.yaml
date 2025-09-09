@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: file-service
+  labels:
+    app: file-service
+    apiVersion: v1

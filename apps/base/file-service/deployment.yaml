@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-app
+  namespace: fastapi
+  labels:
+    app: file-service
+spec:
+  selector:
+    matchLabels:
+      app: file-service
+  template:
+    metadata:
+      labels:
+        app: file-service
+    spec:
+      nodeSelector:
+        # Important to use the node-type label to select the karpenter node pool
+        workload-type: default
+      serviceAccountName: file-service-sa
+      containers:
+      - name: file-service
+        envFrom:
+        - configMapRef:
+            name: file-service-config
+        ports:
+        - containerPort: 8000
