@@ -1,6 +1,6 @@
 apiVersion: v1
 data:
-  CLOUDFRONT_DOMAIN: d1uyqjkkzihz2z.cloudfront.net
+  CLOUDFRONT_DOMAIN: dev-media.piercuta.com
   S3_BUCKET_NAME: piercuta-dev-media-bucket
 kind: ConfigMap
 metadata:
