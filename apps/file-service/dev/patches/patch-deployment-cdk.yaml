@@ -13,7 +13,7 @@ spec:
   template:
     spec:
       containers:
-      - image: 532673134317.dkr.ecr.eu-west-1.amazonaws.com/services/eks/file-service:dev
+      - image: 532673134317.dkr.ecr.eu-west-1.amazonaws.com/services/eks/file-service:latest
         name: file-service
         resources:
           limits:
