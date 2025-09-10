@@ -4,6 +4,7 @@ metadata:
   name: file-service-app
   namespace: file-service
 spec:
+  replicas: 1
   strategy:
     rollingUpdate:
       maxSurge: 100%
