@@ -1,8 +1,9 @@
 apiVersion: v1
 data:
   AWS_REGION: eu-west-1
-  AWS_SECRET_ARN: arn:aws:secretsmanager:eu-west-1:532673134317:secret:rds!cluster-b6a98934-1436-4176-9adb-a35d748b132e-zNW8NS
+  AWS_SECRET_ARN: arn:aws:secretsmanager:eu-west-1:532673134317:secret:rds!cluster-8ddab0ee-5515-422f-a360-d2d3065bb911-YFSXg8
   ENV_NAME: dev
+  FILE_SERVICE_URL: http://file-service-svc.file-service.svc.cluster.local
   FRONTEND_HOST: https://dev-react.piercuta.com
   POSTGRES_SERVER: piercuta-dev-aurora-cluster.cluster-c36i2qm0y4yz.eu-west-1.rds.amazonaws.com
   PROJECT_NAME: piercuta

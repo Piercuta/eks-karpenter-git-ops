@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - install.yaml
+  # - secret-argocd.yaml
 
 patchesStrategicMerge:
   - ./patches/patch-argocd-cm.yaml
