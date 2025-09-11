@@ -30,3 +30,28 @@ patches:
       kind: SecurityGroupPolicy
       name: fastapi-sg
       namespace: fastapi
+
+# vars:
+#   - name: SG_ID
+#     objref:
+#       kind: Secret
+#       name: fastapi-sg
+#       apiVersion: v1
+#     fieldref:
+#       fieldpath: data.SG_ID
+# # ExternalSecret pour la SG_ID qui va créé un secret que lon pourra récupérer à tester...
+# apiVersion: external-secrets.io/v1beta1
+# kind: ExternalSecret
+# metadata:
+#   name: fastapi-sg
+#   namespace: fastapi
+# spec:
+#   secretStoreRef:
+#     name: aws-parameter-store
+#     kind: ClusterSecretStore
+#   target:
+#     name: fastapi-sg
+#   data:
+#     - secretKey: SG_ID
+#       remoteRef:
+#         key: /network/fastapi/sg_id
