@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
   AWS_REGION: eu-west-1
-  AWS_SECRET_ARN: arn:aws:secretsmanager:eu-west-1:532673134317:secret:rds!cluster-8ddab0ee-5515-422f-a360-d2d3065bb911-YFSXg8
+  AWS_SECRET_ARN: arn:aws:secretsmanager:eu-west-1:532673134317:secret:rds!cluster-0bd9e5cf-3e9d-47b1-a024-c69442b71c75-mxz1gY
   ENV_NAME: dev
   FILE_SERVICE_URL: http://file-service-svc.file-service.svc.cluster.local
   FRONTEND_HOST: https://dev-react.piercuta.com
