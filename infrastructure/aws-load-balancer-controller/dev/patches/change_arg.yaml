@@ -1,0 +1,125 @@
+# patches/patch-alb-controller-args.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aws-load-balancer-controller
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      containers:
+      - name: aws-load-balancer-controller
+        args:
+        - '--cluster-name={{ .Values.cluster_name }}'
+        - '--ingress-class=alb'
+        - '--aws-vpc-id={{ .Values.vpc_id }}'
+
+
+
+
+  Parfait ! 👌
+On va faire l’**option B** :
+
+> ⚙️ Utiliser  pour récupérer une valeur dans  → la mettre dans un `ConfigMap` dans le cluster → et l’injecter dans ton chart  via ton `kustomization.yaml`.
+
+Ainsi :
+
+* 💾 Ton `port` n’est jamais dans Git
+* 📦  garde le contrôle GitOps
+* ⚡ La valeur est dynamique et gérée par AWS
+
+---
+
+## 🅐 Étape 1 — ExternalSecret → Secret Kubernetes
+
+**`external-secret.yaml`**
+
+```yaml
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: my-app-port
+  namespace: my-namespace
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: aws-parameter-store
+    kind: ClusterSecretStore
+  target:
+    name: my-app-port
+  data:
+    - secretKey: PORT
+      remoteRef:
+        key: /my/app/port
+```
+
+➡️ ESO crée automatiquement un `Secret` nommé `my-app-port` avec une clé `PORT`.
+
+---
+
+## 🅑 Étape 2 — Convertir ce Secret en ConfigMap (pour Helm)
+
+> ⚠️ Beaucoup de charts Helm lisent plus facilement un `ConfigMap` qu’un `Secret`.
+
+Crée un petit `ConfigMapGenerator` avec une substitution Kustomize :
+
+**`configmap-from-secret.yaml`**
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-app-config
+  namespace: my-namespace
+data:
+  PORT: ${PORT}
+```
+
+**`kustomization.yaml`**
+
+```yaml
+resources:
+  - configmap-from-secret.yaml
+  - external-secret.yaml
+
+vars:
+  - name: PORT
+    objref:
+      kind: Secret
+      name: my-app-port
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.PORT
+
+helmCharts:
+  - name: my-app
+    repo: https://charts.bitnami.com/bitnami
+    version: 15.2.0
+    releaseName: my-app
+    namespace: my-namespace
+    valuesInline:
+      service:
+        port: ${PORT}
+```
+
+---
+
+## ⚙️ Fonctionnement
+
+1. L’`ExternalSecret` récupère `/my/app/port` dans Parameter Store et crée `Secret my-app-port`
+2. `kustomize vars` lit `data.PORT` dans ce `Secret`
+3. Substitution `${PORT}` → injectée dans `valuesInline.service.port`
+4. ArgoCD applique le chart Helm avec la bonne valeur
+
+---
+
+## ✅ Avantages
+
+* Aucun commit d’ID/port dans Git
+* Valeur maintenue côté AWS Parameter Store
+* ArgoCD garde un flux GitOps propre et prévisible
+
+---
+
+Si tu veux, je peux te faire une **arborescence de dossier GitOps propre (`/infra` et `/app`)** avec tout déjà branché.
+Veux-tu que je te la prépare ?
