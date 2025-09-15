@@ -3,6 +3,8 @@ kind: Kustomization
 
 resources:
   - ../base
+  # - patches/external-secret-sg.yaml  # Ajouter l'ExternalSecret
+
 
 patches:
   - path: patches/patch-hpa-cdk.yaml
@@ -31,19 +33,31 @@ patches:
       name: fastapi-sg
       namespace: fastapi
 
-# vars:
-#   - name: SG_ID
-#     objref:
-#       kind: Secret
-#       name: fastapi-sg
-#       apiVersion: v1
-#     fieldref:
-#       fieldpath: data.SG_ID
+vars:
+  - name: SG_ID
+    objref:
+      kind: Secret
+      name: fastapi-sg-secret
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.SG_ID
 # # ExternalSecret pour la SG_ID qui va créé un secret que lon pourra récupérer à tester...
 # apiVersion: external-secrets.io/v1beta1
 # kind: ExternalSecret
 # metadata:
 #   name: fastapi-sg
+
+
+
+
+
+
+
+
+
+
+
+
 #   namespace: fastapi
 # spec:
 #   secretStoreRef:
