@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - ../base
-  - patches/external-secret-sg.yaml  # Ajouter l'ExternalSecret
+  # - patches/external-secret-sg.yaml  # Ajouter l'ExternalSecret
 
 
 patches:
@@ -34,17 +34,17 @@ patches:
       namespace: fastapi
 
 
-replacements:
-  - source:
-      kind: Secret
-      name: fastapi-sg-secret
-      fieldPath: data.SG_ID
-    targets:
-      - select:
-          kind: SecurityGroupPolicy
-          name: fastapi-sg
-        fieldPaths:
-          - spec.securityGroups.groupIds[0]
+# replacements:
+#   - source:
+#       kind: Secret
+#       name: fastapi-sg-secret
+#       fieldPath: data.SG_ID
+#     targets:
+#       - select:
+#           kind: SecurityGroupPolicy
+#           name: fastapi-sg
+#         fieldPaths:
+#           - spec.securityGroups.groupIds[0]
 # vars:
 #   - name: SG_ID
 #     objref:
