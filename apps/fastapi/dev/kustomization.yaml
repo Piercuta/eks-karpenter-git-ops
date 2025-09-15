@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - ../base
-  # - patches/external-secret-sg.yaml  # Ajouter l'ExternalSecret
+  - patches/external-secret-sg.yaml  # Ajouter l'ExternalSecret
 
 
 patches:
