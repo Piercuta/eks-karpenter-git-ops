@@ -33,14 +33,26 @@ patches:
       name: fastapi-sg
       namespace: fastapi
 
-vars:
-  - name: SG_ID
-    objref:
+
+replacements:
+  - source:
       kind: Secret
       name: fastapi-sg-secret
-      apiVersion: v1
-    fieldref:
-      fieldpath: data.SG_ID
+      fieldPath: data.SG_ID
+    targets:
+      - select:
+          kind: SecurityGroupPolicy
+          name: fastapi-sg
+        fieldPaths:
+          - spec.securityGroups.groupIds[0]
+# vars:
+#   - name: SG_ID
+#     objref:
+#       kind: Secret
+#       name: fastapi-sg-secret
+#       apiVersion: v1
+#     fieldref:
+#       fieldpath: data.SG_ID
 # # ExternalSecret pour la SG_ID qui va créé un secret que lon pourra récupérer à tester...
 # apiVersion: external-secrets.io/v1beta1
 # kind: ExternalSecret
