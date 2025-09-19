@@ -1,0 +1,21 @@
+{{- if .Values.securityGroupPolicy.enabled }}
+apiVersion: vpcresources.k8s.aws/v1beta1
+kind: SecurityGroupPolicy
+metadata:
+  name: {{ include "fastapi.fullname" . }}-sg
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    {{- include "fastapi.labels" . | nindent 4 }}
+spec:
+  {{- if .Values.securityGroupPolicy.securityGroupIds }}
+  securityGroups:
+    groupIds:
+    {{- range .Values.securityGroupPolicy.securityGroupIds }}
+    - {{ . }}
+    {{- end }}
+  {{- end }}
+  {{- if .Values.securityGroupPolicy.podSelector }}
+  podSelector:
+    {{- toYaml .Values.securityGroupPolicy.podSelector | nindent 4 }}
+  {{- end }}
+{{- end }}

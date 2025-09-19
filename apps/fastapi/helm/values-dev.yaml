@@ -1,0 +1,32 @@
+# Development environment values for FastAPI
+# because autoscaling enabled
+# replicaCount: 1
+
+serviceAccount:
+  name: fastapi-sa
+
+service:
+  # Tricky, to remove
+  name: fastapi-service
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+  requests:
+    cpu: 1000m
+    memory: 512Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 60
+
+# Namespace
+namespace:
+  create: true
+  name: fastapi

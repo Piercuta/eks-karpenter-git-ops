@@ -1,0 +1,49 @@
+# Production environment values for FastAPI
+replicaCount: 2
+
+image:
+  repository: fastapi
+  tag: "prod"
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 500m
+    memory: 512Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+# Environment variables for prod
+env:
+  POSTGRES_DB: app_prod
+  POSTGRES_USER: postgres
+  POSTGRES_PORT: "5432"
+  SECRET_KEY: ""  # Should be set via External Secrets
+  FIRST_SUPERUSER: admin@prod.example.com
+  FIRST_SUPERUSER_PASSWORD: ""  # Should be set via External Secrets
+
+
+# Security Group Policy
+securityGroupPolicy:
+  enabled: true
+  securityGroupIds: []  # Will be populated by External Secrets
+  podSelector:
+    matchLabels:
+      sg: fastapi
+
+# Namespace
+namespace:
+  create: true
+  name: fastapi
