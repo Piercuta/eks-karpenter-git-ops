@@ -1,16 +1,14 @@
 env:
-  CLOUDFRONT_DOMAIN: ${CLOUDFRONT_DOMAIN}
-  S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+  CLOUDFRONT_DOMAIN: dev-media.piercuta.com
+  S3_BUCKET_NAME: piercuta-dev-media-bucket
 image:
-  repository: ${IMAGE_URL}
-  tag: ${TAG}
-
+  repository: 532673134317.dkr.ecr.eu-west-1.amazonaws.com/services/eks/file-service
+  tag: dev
+replicaCount: 1
 resources:
   limits:
-    cpu: ${CPU_CAPACITY}
-    memory: ${MEM_CAPACITY}
+    cpu: 1000m
+    memory: 512Mi
   requests:
-    cpu: ${CPU_CAPACITY}
-    memory: ${MEM_CAPACITY}
-
-replicaCount: ${DESIRED_REPLICAS}
+    cpu: 1000m
+    memory: 512Mi
