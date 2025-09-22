@@ -14,15 +14,15 @@ image:
 ingress:
   annotations:
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:532673134317:certificate/905d0d16-87e8-4e89-a88c-b6053f472e81
-    alb.ingress.kubernetes.io/security-groups: ${ALB_SG_ID}
-    external-dns.alpha.kubernetes.io/hostname: ${FASTAPI_DOMAIN_NAME}
+    alb.ingress.kubernetes.io/security-groups: sg-004ca22441386d369
+    external-dns.alpha.kubernetes.io/hostname: dev-fast-api.piercuta.com
   rules:
   - paths:
     - path: /
       pathType: Prefix
   tls:
   - hosts:
-    - ${FASTAPI_DOMAIN_NAME}
+    - dev-fast-api.piercuta.com
 resources:
   limits:
     cpu: 1000m
