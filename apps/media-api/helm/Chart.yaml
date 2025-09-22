@@ -1,0 +1,17 @@
+apiVersion: v2
+name: media-api
+description: A Helm chart for FastAPI application
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - media-api
+  - fastapi
+  - python
+  - api
+home: https://github.com/your-org/media-api
+sources:
+  - https://github.com/your-org/media-api
+maintainers:
+  - name: Piercuta
+    email: piercuta@gmail.com

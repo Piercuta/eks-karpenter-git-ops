@@ -1,0 +1,35 @@
+# Namespace
+namespace:
+  create: true
+  name: media-api
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+nameOverride: ""
+fullnameOverride: ""
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+  requests:
+    cpu: 1000m
+    memory: 512Mi
+
+replicaCount: 1
+
+nodeSelector:
+  workload-type: default
+
+image:
+  repository: fastapi
+  pullPolicy: IfNotPresent
+  tag: "latest"

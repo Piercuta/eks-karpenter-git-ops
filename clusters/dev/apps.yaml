@@ -122,7 +122,7 @@ spec:
 #   source:
 #     repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
 #     targetRevision: main
-#     path: apps/main-api/kustomize
+#     path: apps/main-api/kustomize/dev
 #   destination:
 #     server: https://kubernetes.default.svc
 #     namespace: main-api
@@ -162,7 +162,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: file-service-dev
+  name: media-api-dev
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "3"
@@ -171,14 +171,42 @@ spec:
   source:
     repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
     targetRevision: main
-    path: apps/file-service/dev
+    path: apps/media-api/helm
+    helm:
+      releaseName: media-api
+      namespace: media-api-dev
+      valueFiles:
+      - values.yaml
+      - values-dev.yaml
+      - values-dev-cdk.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: file-service
+    namespace: media-api-dev
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: media-api-dev
+#   namespace: argocd
+#   annotations:
+#     argocd.argoproj.io/sync-wave: "3"
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
+#     targetRevision: main
+#     path: apps/media-api/kustomize/dev
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: media-api-dev
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
 # ---
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application

@@ -5,7 +5,7 @@ env:
   AWS_REGION: eu-west-1
   AWS_SECRET_ARN: arn:aws:secretsmanager:eu-west-1:532673134317:secret:rds!cluster-d95e48f7-ffd6-4ac6-a07a-6711dd807f6a-UbrEtR
   ENV_NAME: dev
-  FILE_SERVICE_URL: http://file-service-svc.file-service.svc.cluster.local
+  FILE_SERVICE_URL: http://media-api.media-api-dev.svc.cluster.local
   FRONTEND_HOST: https://dev-react.piercuta.com
   POSTGRES_SERVER: piercuta-dev-aurora-cluster.cluster-c36i2qm0y4yz.eu-west-1.rds.amazonaws.com
   PROJECT_NAME: piercuta
