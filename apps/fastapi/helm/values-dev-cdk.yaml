@@ -1,29 +1,17 @@
-# Security Group Policy
-securityGroupPolicy:
-  enabled: true
-  securityGroupIds:
-  - sg-0ed7c4ce6ee3be413
-
-# Environment variables for dev
+autoscaling:
+  maxReplicas: 5
+  minReplicas: 1
 env:
-  POSTGRES_DB: app
-  POSTGRES_USER: postgres
-  POSTGRES_PORT: "5432"
-  SECRET_KEY: Osa3ZuhC7d6ssbF4XmKtYlemuTdbefkPvuZgOCRTrLg
-  FIRST_SUPERUSER: admin@example.com
-  FIRST_SUPERUSER_PASSWORD: Coucou123!
   AWS_REGION: eu-west-1
-  AWS_SECRET_ARN: arn:aws:secretsmanager:eu-west-1:532673134317:secret:rds!cluster-e7f085d4-5ed4-41f7-bf95-af014fe8c6e2-pDK4Bh
+  AWS_SECRET_ARN: arn:aws:secretsmanager:eu-west-1:532673134317:secret:rds!cluster-d95e48f7-ffd6-4ac6-a07a-6711dd807f6a-UbrEtR
   ENV_NAME: dev
   FILE_SERVICE_URL: http://file-service-svc.file-service.svc.cluster.local
   FRONTEND_HOST: https://dev-react.piercuta.com
   POSTGRES_SERVER: piercuta-dev-aurora-cluster.cluster-c36i2qm0y4yz.eu-west-1.rds.amazonaws.com
   PROJECT_NAME: piercuta
-
 image:
   repository: 532673134317.dkr.ecr.eu-west-1.amazonaws.com/services/ecs/fastapi_app
-  tag: "dev"
-
+  tag: dev
 resources:
   limits:
     cpu: 1000m
@@ -31,9 +19,7 @@ resources:
   requests:
     cpu: 1000m
     memory: 512Mi
-
-autoscaling:
-  minReplicas: 1
-  maxReplicas: 2
-
-
+securityGroupPolicy:
+  enabled: true
+  securityGroupIds:
+  - sg-017c4324f227c2150
