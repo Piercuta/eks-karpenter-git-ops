@@ -27,3 +27,6 @@ autoscaling:
 namespace:
   create: true
   name: main-api-dev
+
+env:
+  FILE_SERVICE_URL: http://media-api.media-api-dev.svc.cluster.local

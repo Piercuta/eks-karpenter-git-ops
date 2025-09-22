@@ -47,3 +47,6 @@ securityGroupPolicy:
 namespace:
   create: true
   name: main-api-prod
+
+env:
+  FILE_SERVICE_URL: http://media-api.media-api-prod.svc.cluster.local
