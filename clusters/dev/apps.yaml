@@ -113,7 +113,7 @@ spec:
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
 # metadata:
-#   name: fastapi-dev
+#   name: main-api-dev
 #   namespace: argocd
 #   annotations:
 #     argocd.argoproj.io/sync-wave: "3"
@@ -122,10 +122,10 @@ spec:
 #   source:
 #     repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
 #     targetRevision: main
-#     path: apps/fastapi/kustomize
+#     path: apps/main-api/kustomize
 #   destination:
 #     server: https://kubernetes.default.svc
-#     namespace: fastapi
+#     namespace: main-api
 #   syncPolicy:
 #     automated:
 #       prune: true
@@ -134,7 +134,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: fastapi-dev
+  name: main-api-dev
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "3"
@@ -143,17 +143,17 @@ spec:
   source:
     repoURL: https://github.com/Piercuta/eks-karpenter-git-ops.git
     targetRevision: main
-    path: apps/fastapi/helm
+    path: apps/main-api/helm
     helm:
-      releaseName: fastapi-dev
-      namespace: fastapi
+      releaseName: main-api
+      namespace: main-api-dev
       valueFiles:
       - values.yaml
       - values-dev.yaml
       - values-dev-cdk.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: fastapi
+    namespace: main-api-dev
   syncPolicy:
     automated:
       prune: true

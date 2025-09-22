@@ -41,9 +41,9 @@ securityGroupPolicy:
   securityGroupIds: []  # Will be populated by External Secrets
   podSelector:
     matchLabels:
-      sg: fastapi
+      sg: main-api
 
 # Namespace
 namespace:
   create: true
-  name: fastapi
+  name: main-api-prod

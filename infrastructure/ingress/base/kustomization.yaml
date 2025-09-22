@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   - argocd-ingress.yaml
-  - fastapi-ingress.yaml
+  # - fastapi-ingress.yaml

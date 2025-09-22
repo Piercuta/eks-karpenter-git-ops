@@ -36,14 +36,24 @@ service:
   targetPort: 8000
 
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
+  enabled: true
+  className: "alb"
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80, "HTTPS": 443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/healthcheck-path: /docs
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: "30"
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: "10"
+    alb.ingress.kubernetes.io/healthy-threshold-count: "3"
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: "3"
   hosts:
-    - host: fastapi.local
-      paths:
+    - paths:
         - path: /
           pathType: Prefix
+      # host: main-api.local
   tls: []
 
 resources:
@@ -101,9 +111,9 @@ securityGroupPolicy:
   securityGroupIds: []
   podSelector:
     matchLabels:
-      sg: fastapi
+      sg: main-api
 
 # Namespace
 namespace:
   create: true
-  name: fastapi
+  name: main-api

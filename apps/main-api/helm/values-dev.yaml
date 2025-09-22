@@ -2,12 +2,9 @@
 # because autoscaling enabled
 # replicaCount: 1
 
-serviceAccount:
-  name: fastapi-sa
-
 service:
   # Tricky, to remove
-  name: fastapi-service
+  # name: main-api-service
   type: ClusterIP
   port: 80
   targetPort: 8000
@@ -29,4 +26,4 @@ autoscaling:
 # Namespace
 namespace:
   create: true
-  name: fastapi
+  name: main-api-dev

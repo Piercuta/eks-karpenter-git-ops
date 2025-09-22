@@ -2,10 +2,10 @@
 apiVersion: vpcresources.k8s.aws/v1beta1
 kind: SecurityGroupPolicy
 metadata:
-  name: {{ include "fastapi.fullname" . }}-sg
+  name: {{ include "main-api.fullname" . }}
   namespace: {{ .Values.namespace.name }}
   labels:
-    {{- include "fastapi.labels" . | nindent 4 }}
+    {{- include "main-api.labels" . | nindent 4 }}
 spec:
   {{- if .Values.securityGroupPolicy.securityGroupIds }}
   securityGroups:

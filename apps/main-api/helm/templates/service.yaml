@@ -4,11 +4,11 @@ metadata:
   {{- if .Values.service.name }}
   name: {{ .Values.service.name }}
   {{- else }}
-  name: {{ include "fastapi.fullname" . }}-service
+  name: {{ include "main-api.fullname" . }}
   {{- end }}
   namespace: {{ .Values.namespace.name }}
   labels:
-    {{- include "fastapi.labels" . | nindent 4 }}
+    {{- include "main-api.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -17,4 +17,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "fastapi.selectorLabels" . | nindent 4 }}
+    {{- include "main-api.selectorLabels" . | nindent 4 }}

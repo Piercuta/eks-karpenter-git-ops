@@ -10,8 +10,8 @@ patches:
       kind: Ingress
       name: argocd-ingress
       namespace: argocd
-  - path: patches/patch-fastapi-ingress-cdk.yaml
-    target:
-      kind: Ingress
-      name: fastapi-ingress
-      namespace: fastapi
+  # - path: patches/patch-fastapi-ingress-cdk.yaml
+  #   target:
+  #     kind: Ingress
+  #     name: fastapi-ingress
+  #     namespace: fastapi
