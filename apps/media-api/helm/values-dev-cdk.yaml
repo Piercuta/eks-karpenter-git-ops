@@ -1,5 +1,5 @@
 env:
-  CLOUDFRONT_DOMAIN: dev-media.piercuta.com
+  CLOUDFRONT_DOMAIN: media-api-dev.piercuta.com
   S3_BUCKET_NAME: piercuta-dev-media-bucket
 image:
   repository: 532673134317.dkr.ecr.eu-west-1.amazonaws.com/services/eks/file-service
