@@ -3,11 +3,11 @@ kind: Ingress
 metadata:
   annotations:
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:532673134317:certificate/905d0d16-87e8-4e89-a88c-b6053f472e81
-    alb.ingress.kubernetes.io/security-groups: sg-004ca22441386d369
-    external-dns.alpha.kubernetes.io/hostname: dev-argocd.piercuta.com
+    alb.ingress.kubernetes.io/security-groups: sg-046832a167d444a73
+    external-dns.alpha.kubernetes.io/hostname: argocd-dev.piercuta.com
   name: argocd-ingress
   namespace: argocd
 spec:
   tls:
   - hosts:
-    - dev-argocd.piercuta.com
+    - argocd-dev.piercuta.com
