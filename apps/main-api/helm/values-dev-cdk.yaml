@@ -3,7 +3,7 @@ autoscaling:
   minReplicas: 1
 env:
   AWS_REGION: eu-west-1
-  AWS_SECRET_ARN: arn:aws:secretsmanager:eu-west-1:532673134317:secret:rds!cluster-1e2768d2-3502-4bcf-9688-351c24e7dd0c-Zo5IXK
+  AWS_SECRET_ARN: arn:aws:secretsmanager:eu-west-1:532673134317:secret:rds!cluster-66ff6474-788b-4e94-867b-d1e1e76bfb8f-0jkRia
   ENV_NAME: dev
   FRONTEND_HOST: https://frontend-dev.piercuta.com
   POSTGRES_SERVER: piercuta-dev-aurora-cluster.cluster-c36i2qm0y4yz.eu-west-1.rds.amazonaws.com
@@ -14,7 +14,7 @@ image:
 ingress:
   annotations:
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-west-1:532673134317:certificate/905d0d16-87e8-4e89-a88c-b6053f472e81
-    alb.ingress.kubernetes.io/security-groups: sg-046832a167d444a73
+    alb.ingress.kubernetes.io/security-groups: sg-0ae0a2c83693ca518
     external-dns.alpha.kubernetes.io/hostname: main-api-dev.piercuta.com
   rules:
   - paths:
@@ -33,4 +33,4 @@ resources:
 securityGroupPolicy:
   enabled: true
   securityGroupIds:
-  - sg-04164db772da02f0d
+  - sg-096ceeed57c4e5f0e
